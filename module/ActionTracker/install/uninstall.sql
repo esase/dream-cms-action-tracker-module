@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS `action_tracker_connection`;

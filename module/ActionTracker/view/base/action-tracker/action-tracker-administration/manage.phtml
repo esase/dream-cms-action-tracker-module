@@ -1,0 +1,89 @@
+<?php $this->declareVars('subPageTitle', 'content') ?>
+<?php $this->subPageTitle = $this->translate('Manage actions') ?>
+<?php $this->headTitle($this->subPageTitle) ?>
+
+<!-- render a header -->
+<?php echo $this->render('action-tracker/action-tracker-administration/_header') ?>
+
+<!-- render tabs -->
+<?php echo $this->partial('administration-partial/tab', [
+    'tabs' => $this->baseTabs,
+    'active' => 'manage' // selected action is "manage"
+]) ?>
+
+<!-- render a data grid -->
+<?php $this->content = $this->partial('partial/data-grid', [
+    'controller' => 'actions-tracker-administration',
+    'action' => 'manage',
+    'order_by' => $this->order_by,
+    'order_type' => $this->order_type,
+    'per_page' => $this->per_page,
+    'default_order' => 'id',
+    'default_order_type' => 'desc',
+    'filter_form' => $this->filter_form,
+    'headers' => [
+        [
+            'title' => $this->translate('ID'),
+            'order_name' => 'id'
+        ],
+        [
+            'title' => $this->translate('Description')
+        ],
+        [
+            'title' => $this->translate('Module')
+        ],
+        [
+            'title' => $this->translate('Status'),
+            'order_name' => 'connection'
+        ]
+    ],
+    'paginator' => $this->paginator,
+    'helpers' => [
+        'description' => 'translate',
+        'module' => 'translate',
+        'connection' => 'applicationBooleanValue'
+    ],
+    'helpers_options' => [
+        'connection' => [
+            'true_string' => $this->translate('Activated'),
+            'false_string' => $this->translate('Deactivated')
+        ]
+    ],
+    'actions' => [
+        'regular_actions' => [
+        ],
+        'multiple_actions' => [
+            [
+                'name' => $this->translate('Activate selected'),
+                'controller' => 'actions-tracker-administration',
+                'action' => 'activate',
+                'check_acl' => true
+            ],
+            [
+                'name' => $this->translate('Deactivate selected'),
+                'controller' => 'actions-tracker-administration',
+                'action' => 'deactivate',
+                'check_acl' => true
+            ]
+        ],
+        'single_actions' => [
+        ]
+    ],
+    'actions_options' => [
+        'action_identity' => 'id',
+        'form_name' => 'action-tracker-actions',
+        'multiple_actions' => [
+            'items_name' => 'actions[]'
+        ]
+    ],
+    'actions_extra_check' => [
+        'single_actions' => [
+        ]
+    ]
+]) ?>
+
+<!-- render a data grid -->
+<?php echo $this->partial('administration-partial/panel', [
+    'title' => $this->translate('Registered actions'),
+    'body' => $this->content
+]) ?>

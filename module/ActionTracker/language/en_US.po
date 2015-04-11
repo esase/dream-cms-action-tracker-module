@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dream CMS \"actionTracker\" module\n"
 "POT-Creation-Date: 2013-07-19 11:59+0600\n"
-"PO-Revision-Date: 2015-04-11 10:33+0600\n"
+"PO-Revision-Date: 2015-04-11 14:03+0600\n"
 "Last-Translator: AlexE <alexermashev@gmail.com>\n"
 "Language-Team: \n"
 "Language: English\n"
@@ -15,5 +15,74 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Registered actions"
+msgstr "Registered actions"
+
+msgid "The selected action has been deactivated"
+msgstr "The selected action has been deactivated"
+
+msgid "Selected actions have been deactivated"
+msgstr "Selected actions have been deactivated"
+
+msgid "The selected action has been activated"
+msgstr "The selected action has been activated"
+
+msgid "Selected actions have been activated"
+msgstr "Selected actions have been activated"
+
+msgid "Deactivate selected"
+msgstr "Deactivate selected"
+
+msgid "Activate selected"
+msgstr "Activate selected"
+
+msgid "Deactivated"
+msgstr "Deactivated"
+
+msgid "Activated"
+msgstr "Activated"
+
+msgid "Manage actions"
+msgstr "Manage actions"
+
+msgid "List of actions"
+msgstr "List of actions"
+
 msgid "Module allows to track all site changes"
 msgstr "Module allows to track all site changes"
+
+msgid "ActionTracker"
+msgstr "Action Tracker"
+
+msgid "Event - Activating actions"
+msgstr "Activating actions"
+
+msgid "Event - Action activated by guest"
+msgstr "Guest activated the action with id - \"%d\""
+
+msgid "Event - Action activated by user"
+msgstr "\"%s\" activated the action with id - \"%d\""
+
+msgid "Event - Deactivating actions"
+msgstr "Deactivating actions"
+
+msgid "Event - Action deactivated by guest"
+msgstr "Guest deactivated the action with id - \"%d\""
+
+msgid "Event - Action deactivated by user"
+msgstr "\"%s\" deactivated the action with id - \"%d\""
+
+msgid "ACL - Editing actions tracker settings in admin area"
+msgstr "Editing actions tracker settings in admin area"
+
+msgid "ACL - Viewing actions in admin area"
+msgstr "Viewing actions in admin area"
+
+msgid "ACL - Managing actions in admin area"
+msgstr "Managing actions in admin area"
+
+msgid "ACL - Activating actions in admin area"
+msgstr "Activating actions in admin area"
+
+msgid "ACL - Deactivating actions in admin area"
+msgstr "Deactivating actions in admin area"

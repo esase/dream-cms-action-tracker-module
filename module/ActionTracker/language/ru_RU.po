@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dream CMS \"actionTracker\" module\n"
 "POT-Creation-Date: 2013-07-19 11:59+0600\n"
-"PO-Revision-Date: 2015-04-11 10:33+0600\n"
+"PO-Revision-Date: 2015-04-11 14:03+0600\n"
 "Last-Translator: AlexE <alexermashev@gmail.com>\n"
 "Language-Team: \n"
 "Language: Русский\n"
@@ -16,5 +16,74 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+msgid "Registered actions"
+msgstr "Зарегистрированные действия"
+
+msgid "The selected action has been deactivated"
+msgstr "Выбранное действие было дезактивировано"
+
+msgid "Selected actions have been deactivated"
+msgstr "Выбранные действия были дезактивированы"
+
+msgid "The selected action has been activated"
+msgstr "Выбранное действие было активировано"
+
+msgid "Selected actions have been activated"
+msgstr "Выбранные действия были активированы"
+
+msgid "Deactivate selected"
+msgstr "Дезактивировать выбранное"
+
+msgid "Activate selected"
+msgstr "Активировать выбранное"
+
+msgid "Deactivated"
+msgstr "Дезактивировано"
+
+msgid "Activated"
+msgstr "Активировано"
+
+msgid "Manage actions"
+msgstr "Управление действиями"
+
+msgid "List of actions"
+msgstr "Список действий"
+
 msgid "Module allows to track all site changes"
 msgstr "Модуль позволяет отслеживать все изменения на сайте"
+
+msgid "ActionTracker"
+msgstr "Отслеживатель действий"
+
+msgid "Event - Activating actions"
+msgstr "Активация действий"
+
+msgid "Event - Action activated by guest"
+msgstr "Гость активировал действие с идентификатором - \"%d\""
+
+msgid "Event - Action activated by user"
+msgstr "\"%s\" активировал(а) действие с идентификатором - \"%d\""
+
+msgid "Event - Deactivating actions"
+msgstr "Дезактивация действий"
+
+msgid "Event - Action deactivated by guest"
+msgstr "Гость дезактивировал действие с идентификатором - \"%d\""
+
+msgid "Event - Action deactivated by user"
+msgstr "\"%s\" дезактивировал(а) действие с идентификатором - \"%d\""
+
+msgid "ACL - Editing actions tracker settings in admin area"
+msgstr "Редактирование настроек отслеживателя действий в админке"
+
+msgid "ACL - Viewing actions in admin area"
+msgstr "Просмотр действий в админке"
+
+msgid "ACL - Managing actions in admin area"
+msgstr "Управление действиями в админке"
+
+msgid "ACL - Activating actions in admin area"
+msgstr "Активация действий в админке"
+
+msgid "ACL - Deactivating actions in admin area"
+msgstr "Дезактивиция действий в админке"

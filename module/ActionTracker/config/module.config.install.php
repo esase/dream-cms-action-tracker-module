@@ -31,9 +31,9 @@ return [
     ],
     'resources' => [
     ],
-    'install_sql' => null,
+    'install_sql' => __DIR__ . '/../install/install.sql',
     'install_intro' => null,
-    'uninstall_sql' => null,
+    'uninstall_sql' => __DIR__ . '/../install/uninstall.sql',
     'uninstall_intro' => null,
     'layout_path' => 'actiontracker'
 ];

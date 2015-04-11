@@ -3,6 +3,7 @@
 return [
     'controllers' => [
         'invokables' => [
+            'actions-tracker-administration' => 'ActionTracker\Controller\ActionTrackerAdministrationController'
         ]
     ],
     'router' => [

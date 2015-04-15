@@ -42,3 +42,15 @@ CREATE TABLE `action_tracker_connection` (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `action_tracker_log` (
+    `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `action_id` SMALLINT(5) UNSIGNED NOT NULL,
+    `description` VARCHAR(100) NOT NULL,
+    `description_params` TEXT NOT NULL,
+    `registered` INT(10) UNSIGNED DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`action_id`) REFERENCES `application_event`(`id`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

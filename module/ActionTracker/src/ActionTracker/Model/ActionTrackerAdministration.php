@@ -170,4 +170,65 @@ class ActionTrackerAdministration extends ActionTrackerBase
 
         return $paginator;
     }
+ 
+    /**
+     * Get actions log
+     *
+     * @param integer $page
+     * @param integer $perPage
+     * @param string $orderBy
+     * @param string $orderType
+     * @param array $filters
+     *      array modules
+     * @return object Paginator
+     */
+    public function getActionsLog($page = 1, $perPage = 0, $orderBy = null, $orderType = null, array $filters = array())
+    {
+        $orderFields = [
+            'id',
+            'registered'
+        ];
+
+        $orderType = !$orderType || $orderType == 'desc'
+            ? 'desc'
+            : 'asc';
+
+        $orderBy = $orderBy && in_array($orderBy, $orderFields)
+            ? $orderBy
+            : 'id';
+
+        $select = $this->select();
+        $select->from(['a' => 'action_tracker_log'])
+            ->columns([
+                'id',
+                'description',
+                'description_params',
+                'registered'
+            ])
+            ->join(
+                ['b' => 'application_event'],
+                'a.action_id = b.id',
+                []
+            )
+            ->join(
+                ['c' => 'application_module'],
+                'b.module = c.id',
+                [
+                    'module' => 'name'
+                ]
+            )
+            ->order($orderBy . ' ' . $orderType);
+
+        // filter by modules
+        if (!empty($filters['modules']) && is_array($filters['modules'])) {
+            $select->where->in('b.module', $filters['modules']);
+        }
+
+        $paginator = new Paginator(new DbSelectPaginator($select, $this->adapter));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(PaginationUtility::processPerPage($perPage));
+        $paginator->setPageRange(SettingService::getSetting('application_page_range'));
+
+        return $paginator;
+    }
 }

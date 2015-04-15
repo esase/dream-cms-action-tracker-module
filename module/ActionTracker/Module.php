@@ -2,6 +2,8 @@
 namespace ActionTracker;
 
 use Zend\ModuleManager\ModuleManagerInterface;
+use Zend\ModuleManager\ModuleEvent as ModuleEvent;
+use ActionTracker\Event\ActionTrackerEvent;
 
 class Module
 {
@@ -20,6 +22,35 @@ class Module
     {
         // get service manager
         $this->serviceLocator = $moduleManager->getEvent()->getParam('ServiceManager');
+
+        $moduleManager->getEventManager()->
+            attach(ModuleEvent::EVENT_LOAD_MODULES_POST, [$this, 'initEvents']);
+    }
+
+    /**
+     * Init events
+     * 
+     * @param object $e
+     */
+    public function initEvents(ModuleEvent $e)
+    {
+        $model = $this->serviceLocator
+            ->get('Application\Model\ModelManager')
+            ->getInstance('ActionTracker\Model\ActionTrackerBase');
+
+        $actions = $model->getActivatedActions();
+
+        // bind all activated events
+        if (count($actions)) {
+            $eventManager = ActionTrackerEvent::getEventManager();
+
+            foreach ($actions as $action) {
+                $eventManager->attach($action->name, function ($e) use ($model, $action) {
+                    $model->logAction($action->
+                            action_id, $e->getParam('description'), $e->getParam('description_params'));
+                });
+            }
+        }
     }
 
     /**
@@ -61,6 +92,7 @@ class Module
     {
         return [
             'invokables' => [
+                'actionTrackerDescription' => 'ActionTracker\View\Helper\ActionTrackerDescription'
             ]
         ];
     }

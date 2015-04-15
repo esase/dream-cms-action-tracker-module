@@ -54,6 +54,35 @@ class ActionTrackerAdministrationController extends ApplicationAbstractAdministr
         if (true !== ($result = $this->aclCheckPermission())) {
             return $result;
         }
+
+        $filters = [];
+
+        // get a filter form
+        $filterForm = $this->getServiceLocator()
+            ->get('Application\Form\FormManager')
+            ->getInstance('ActionTracker\Form\ActionTrackerFilter');
+
+        $filterForm->setModel($this->getModel())->hideStatusFilter();
+
+        $request = $this->getRequest();
+        $filterForm->getForm()->setData($request->getQuery(), false);
+
+        // check the filter form validation
+        if ($filterForm->getForm()->isValid()) {
+            $filters = $filterForm->getForm()->getData();
+        }
+
+        // get data
+        $paginator = $this->getModel()->getActionsLog($this->
+                getPage(), $this->getPerPage(), $this->getOrderBy(), $this->getOrderType(), $filters);
+
+        return new ViewModel([
+            'filter_form' => $filterForm->getForm(),
+            'paginator' => $paginator,
+            'order_by' => $this->getOrderBy(),
+            'order_type' => $this->getOrderType(),
+            'per_page' => $this->getPerPage()
+        ]);
     }
 
     /**

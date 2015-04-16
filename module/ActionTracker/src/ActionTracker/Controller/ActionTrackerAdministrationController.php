@@ -46,6 +46,60 @@ class ActionTrackerAdministrationController extends ApplicationAbstractAdministr
     }
 
     /**
+     * Delete selected actions log
+     */
+    public function deleteAction()
+    {
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            if (null !== ($actionsIds = $request->getPost('actions', null))) {
+                // delete selected actions log
+                $deleteResult = false;
+                $deletedCount = 0;
+
+                foreach ($actionsIds as $actionId) {
+                    // check the permission and increase permission's actions track
+                    if (true !== ($result = $this->aclCheckPermission(null, true, false))) {
+                        $this->flashMessenger()
+                            ->setNamespace('error')
+                            ->addMessage($this->getTranslator()->translate('Access Denied'));
+
+                        break;
+                    }
+
+                    // delete the action log
+                    if (true !== ($deleteResult = $this->getModel()->deleteActionLog($actionId))) {
+                        $this->flashMessenger()
+                            ->setNamespace('error')
+                            ->addMessage(($deleteResult ? $this->getTranslator()->translate($deleteResult)
+                                : $this->getTranslator()->translate('Error occurred')));
+
+                        break;
+                    }
+
+                    $deletedCount++;
+                }
+
+                if (true === $deleteResult) {
+                    $message = $deletedCount > 1
+                        ? 'Selected actions log have been deleted'
+                        : 'The selected action log has been deleted';
+
+                    $this->flashMessenger()
+                        ->setNamespace('success')
+                        ->addMessage($this->getTranslator()->translate($message));
+                }
+            }
+        }
+
+        // redirect back
+        return $request->isXmlHttpRequest()
+            ? $this->getResponse()
+            : $this->redirectTo('actions-tracker-administration', 'list', [], true);
+    }
+
+    /**
      * List of actions
      */
     public function listAction()

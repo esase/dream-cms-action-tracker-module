@@ -56,6 +56,13 @@
         'regular_actions' => [
         ],
         'multiple_actions' => [
+            [
+                'name' => $this->translate('Delete selected'),
+                'controller' => 'actions-tracker-administration',
+                'action' => 'delete',
+                'check_acl' => true,
+                'confirm' => $this->translate('Selected actions log will be deleted. Are you sure?')
+            ]
         ],
         'single_actions' => [
         ]

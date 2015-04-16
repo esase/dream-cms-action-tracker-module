@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dream CMS \"actionTracker\" module\n"
 "POT-Creation-Date: 2013-07-19 11:59+0600\n"
-"PO-Revision-Date: 2015-04-15 11:27+0600\n"
+"PO-Revision-Date: 2015-04-16 10:40+0600\n"
 "Last-Translator: AlexE <alexermashev@gmail.com>\n"
 "Language-Team: \n"
 "Language: English\n"
@@ -14,6 +14,15 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "The selected action log has been deleted"
+msgstr "The selected action log has been deleted"
+
+msgid "Selected actions log have been deleted"
+msgstr "Selected actions log have been deleted"
+
+msgid "Selected actions log will be deleted. Are you sure?"
+msgstr "Selected actions log will be deleted. Are you sure?"
 
 msgid "Registered actions"
 msgstr "Registered actions"
@@ -54,6 +63,15 @@ msgstr "Module allows to track all site changes"
 msgid "ActionTracker"
 msgstr "Action Tracker"
 
+msgid "Event - Deleting actions log"
+msgstr "Deleting actions log"
+
+msgid "Event - Action log deleted by guest"
+msgstr "Guest deleted the action log with id - \"%d\""
+
+msgid "Event - Action log deleted by user"
+msgstr "\"%s\" deleted the action log with id - \"%d\""
+
 msgid "Event - Activating actions"
 msgstr "Activating actions"
 
@@ -75,8 +93,8 @@ msgstr "\"%s\" deactivated the action with id - \"%d\""
 msgid "ACL - Editing actions tracker settings in admin area"
 msgstr "Editing actions tracker settings in admin area"
 
-msgid "ACL - Viewing actions in admin area"
-msgstr "Viewing actions in admin area"
+msgid "ACL - Viewing actions log in admin area"
+msgstr "Viewing actions log in admin area"
 
 msgid "ACL - Managing actions in admin area"
 msgstr "Managing actions in admin area"
@@ -86,3 +104,6 @@ msgstr "Activating actions in admin area"
 
 msgid "ACL - Deactivating actions in admin area"
 msgstr "Deactivating actions in admin area"
+
+msgid "ACL - Deleting actions log in admin area"
+msgstr "Deleting actions log in admin area"

@@ -212,13 +212,13 @@ class ActionTrackerAdministration extends ActionTrackerBase
             )
             ->join(
                 ['c' => 'application_module'],
-                'b.module = c.id',
+                new Expression('b.module = c.id and c.status = ?', [self::MODULE_STATUS_ACTIVE]),
                 [
                     'module' => 'name'
                 ]
             )
             ->order($orderBy . ' ' . $orderType);
-
+                            
         // filter by modules
         if (!empty($filters['modules']) && is_array($filters['modules'])) {
             $select->where->in('b.module', $filters['modules']);
@@ -230,5 +230,39 @@ class ActionTrackerAdministration extends ActionTrackerBase
         $paginator->setPageRange(SettingService::getSetting('application_page_range'));
 
         return $paginator;
+    }
+
+    /**
+     * Delete action log
+     *
+     * @param integer $actionId
+     * @return boolean|string
+     */
+    public function deleteActionLog($actionId)
+    {
+        try {
+            $this->adapter->getDriver()->getConnection()->beginTransaction();
+
+            $delete = $this->delete()
+                ->from('action_tracker_log')
+                ->where([
+                    'id' => $actionId
+                ]);
+
+            $statement = $this->prepareStatementForSqlObject($delete);
+            $result = $statement->execute();
+
+            $this->adapter->getDriver()->getConnection()->commit();
+        }
+        catch (Exception $e) {
+            $this->adapter->getDriver()->getConnection()->rollback();
+            ApplicationErrorLogger::log($e);
+
+            return $e->getMessage();
+        }
+
+        // fire the delete action log event
+        ActionTrackerEvent::fireDeleteActionEvent($actionId);
+        return $result->count() ? true : false;
     }
 }

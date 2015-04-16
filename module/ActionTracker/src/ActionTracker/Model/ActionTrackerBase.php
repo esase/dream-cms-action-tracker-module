@@ -19,6 +19,11 @@ class ActionTrackerBase extends ApplicationAbstractBase
      */
     public function logAction($actionId, $description, array $params = [])
     {
+        // TODO: Check current exsisting module
+        //if (!$this->getModuleInfo('ActionTracker')) {
+        //    return true;
+        //}
+
         try {
             $this->adapter->getDriver()->getConnection()->beginTransaction();
 

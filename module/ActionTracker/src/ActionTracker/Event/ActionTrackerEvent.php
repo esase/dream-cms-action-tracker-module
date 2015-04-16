@@ -17,6 +17,32 @@ class ActionTrackerEvent extends ApplicationAbstractEvent
     const DEACTIVATE_ACTION = 'action_tracker_deactivate';
 
     /**
+     * Delete action event
+     */
+    const DELETE_ACTION = 'action_tracker_delete';
+
+    /**
+     * Fire delete action event
+     *
+     * @param $actionId
+     * @return void
+     */
+    public static function fireDeleteActionEvent($actionId)
+    {
+        // event's description
+        $eventDesc = UserIdentityService::isGuest()
+            ? 'Event - Action log deleted by guest'
+            : 'Event - Action log deleted by user';
+
+        $eventDescParams = UserIdentityService::isGuest()
+            ? [$actionId]
+            : [UserIdentityService::getCurrentUserIdentity()['nick_name'], $actionId];
+
+        self::fireEvent(self::DELETE_ACTION, 
+                $actionId, UserIdentityService::getCurrentUserIdentity()['user_id'], $eventDesc, $eventDescParams);
+    }
+
+    /**
      * Fire activate action event
      *
      * @param $actionId

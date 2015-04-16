@@ -20,7 +20,8 @@ INSERT INTO `application_admin_menu` (`name`, `controller`, `action`, `module`, 
 -- acl resources
 
 INSERT INTO `acl_resource` (`resource`, `description`, `module`) VALUES
-('actions_tracker_administration_list', 'ACL - Viewing actions in admin area', @moduleId),
+('actions_tracker_administration_list', 'ACL - Viewing actions log in admin area', @moduleId),
+('actions_tracker_administration_delete', 'ACL - Deleting actions log in admin area', @moduleId),
 ('actions_tracker_administration_manage', 'ACL - Managing actions in admin area', @moduleId),
 ('actions_tracker_administration_activate', 'ACL - Activating actions in admin area', @moduleId),
 ('actions_tracker_administration_deactivate', 'ACL - Deactivating actions in admin area', @moduleId),
@@ -29,6 +30,7 @@ INSERT INTO `acl_resource` (`resource`, `description`, `module`) VALUES
 -- application events
 
 INSERT INTO `application_event` (`name`, `module`, `description`) VALUES
+('action_tracker_delete', @moduleId, 'Event - Deleting actions log'),
 ('action_tracker_activate', @moduleId, 'Event - Activating actions'),
 ('action_tracker_deactivate', @moduleId, 'Event - Deactivating actions');
 

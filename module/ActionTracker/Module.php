@@ -46,8 +46,10 @@ class Module
 
             foreach ($actions as $action) {
                 $eventManager->attach($action->name, function ($e) use ($model, $action) {
-                    $model->logAction($action->
-                            action_id, $e->getParam('description'), $e->getParam('description_params'));
+                    if ($model->getModuleInfo('ActionTracker')) {
+                        $model->logAction($action->
+                                action_id, $e->getParam('description'), $e->getParam('description_params'));
+                    }
                 });
             }
         }

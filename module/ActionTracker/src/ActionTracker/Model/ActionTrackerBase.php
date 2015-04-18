@@ -1,6 +1,9 @@
 <?php
 namespace ActionTracker\Model;
 
+use Application\Utility\ApplicationEmailNotification as EmailNotificationUtility;
+use Localization\Service\Localization as LocalizationService;
+use Application\Service\ApplicationSetting as SettingService;
 use Application\Utility\ApplicationErrorLogger;
 use Application\Model\ApplicationAbstractBase;
 use Zend\Db\Sql\Expression as Expression;
@@ -19,11 +22,6 @@ class ActionTrackerBase extends ApplicationAbstractBase
      */
     public function logAction($actionId, $description, array $params = [])
     {
-        // TODO: Check current exsisting module
-        //if (!$this->getModuleInfo('ActionTracker')) {
-        //    return true;
-        //}
-
         try {
             $this->adapter->getDriver()->getConnection()->beginTransaction();
 
@@ -46,6 +44,27 @@ class ActionTrackerBase extends ApplicationAbstractBase
             ApplicationErrorLogger::log($e);
 
             return $e->getMessage();
+        }
+
+        // send an email notification about add the new action
+        if (SettingService::getSetting('action_tracker_send_actions')) {
+            $defaultLocalization = LocalizationService::getDefaultLocalization();
+            $actionDescription = vsprintf($this->serviceLocator->
+                    get('Translator')->translate($description, 'default', $defaultLocalization['locale']), $params);
+
+            EmailNotificationUtility::sendNotification(SettingService::getSetting('application_site_email'),
+                SettingService::getSetting('action_tracker_title', $defaultLocalization['language']),
+                SettingService::getSetting('action_tracker_message', $defaultLocalization['language']), [
+                    'find' => [
+                        'Action',
+                        'Date'
+                    ],
+                    'replace' => [
+                        $actionDescription,
+                        $this->serviceLocator->get('viewHelperManager')->
+                                get('applicationDate')->__invoke(time(), [], $defaultLocalization['language'])                        
+                    ]
+                ]);
         }
 
         return true;

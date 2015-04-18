@@ -32,7 +32,7 @@ class ActionTrackerAdministrationController extends ApplicationAbstractAdministr
     public function settingsAction()
     {
         return new ViewModel([
-            'settings_form' => parent::settingsForm('application', 'actions-tracker-administration', 'settings')
+            'settings_form' => parent::settingsForm('actionTracker', 'actions-tracker-administration', 'settings')
         ]);
     }
 

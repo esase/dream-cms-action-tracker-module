@@ -7,7 +7,7 @@ SET @moduleId = __module_id__;
 SET @maxOrder = (SELECT `order` + 1 FROM `application_admin_menu` ORDER BY `order` DESC LIMIT 1);
 
 INSERT INTO `application_admin_menu_category` (`name`, `module`, `icon`) VALUES
-('ActionTracker', @moduleId, 'action_tracker_menu_item.png');
+('Actions tracker', @moduleId, 'action_tracker_menu_item.png');
 
 SET @menuCategoryId = (SELECT LAST_INSERT_ID());
 SET @menuPartId = (SELECT `id` FROM `application_admin_menu_part` WHERE `name` = 'Modules');
@@ -33,6 +33,32 @@ INSERT INTO `application_event` (`name`, `module`, `description`) VALUES
 ('action_tracker_delete', @moduleId, 'Event - Deleting actions log'),
 ('action_tracker_activate', @moduleId, 'Event - Activating actions'),
 ('action_tracker_deactivate', @moduleId, 'Event - Deactivating actions');
+
+-- application settings
+
+INSERT INTO `application_setting_category` (`name`, `module`) VALUES
+('Email notifications', @moduleId);
+SET @settingsCategoryId = (SELECT LAST_INSERT_ID());
+
+INSERT INTO `application_setting` (`name`, `label`, `description`, `type`, `required`, `order`, `category`, `module`, `language_sensitive`, `values_provider`, `check`, `check_message`) VALUES
+('action_tracker_send_actions', 'Send notifications about new actions', NULL, 'checkbox', NULL, 1, @settingsCategoryId, @moduleId, NULL, NULL, NULL, NULL);
+SET @settingId = (SELECT LAST_INSERT_ID());
+
+INSERT INTO `application_setting` (`name`, `label`, `description`, `type`, `required`, `order`, `category`, `module`, `language_sensitive`, `values_provider`, `check`, `check_message`) VALUES
+('action_tracker_title', 'Action title', 'An action notification', 'notification_title', 1, 2, @settingsCategoryId, @moduleId, 1, NULL, NULL, NULL);
+SET @settingId = (SELECT LAST_INSERT_ID());
+
+INSERT INTO `application_setting_value` (`setting_id`, `value`, `language`) VALUES
+(@settingId, 'There has been a new action', NULL),
+(@settingId, 'Произошло новое действие', 'ru');
+
+INSERT INTO `application_setting` (`name`, `label`, `description`, `type`, `required`, `order`, `category`, `module`, `language_sensitive`, `values_provider`, `check`, `check_message`) VALUES
+('action_tracker_message', 'Action message', NULL, 'notification_message', 1, 3, @settingsCategoryId, @moduleId, 1, NULL, NULL, NULL);
+SET @settingId = (SELECT LAST_INSERT_ID());
+
+INSERT INTO `application_setting_value` (`setting_id`, `value`, `language`) VALUES
+(@settingId, '<p><b>The site was a new action:</b></p><p>__Action__</p><p>__Date__</p>', NULL),
+(@settingId, '<p><b>На сайте произошло новое действие:</b></p><p>__Action__</p><p>__Date__</p>', 'ru');
 
 -- module tables
 

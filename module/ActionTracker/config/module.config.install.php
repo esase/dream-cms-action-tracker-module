@@ -22,7 +22,7 @@
  */
 return [
     'compatable' => '2.2.3',
-    'version' => '1.0.0',
+    'version' => '1.0.1',
     'vendor' => 'eSASe',
     'vendor_email' => 'alexermashev@gmail.com',
     'description' => 'Module allows to track all site changes',

@@ -1,0 +1,4 @@
+Action Tracker 1.0.1, Sep 12, 2015
+====================================
+
+- added a license info into each file;

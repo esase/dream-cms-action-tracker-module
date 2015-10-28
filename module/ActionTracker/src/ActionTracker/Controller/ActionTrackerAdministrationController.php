@@ -76,7 +76,9 @@ class ActionTrackerAdministrationController extends ApplicationAbstractAdministr
     {
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost() &&
+                $this->applicationCsrf()->isTokenValid($request->getPost('csrf'))) {
+
             if (null !== ($actionsIds = $request->getPost('actions', null))) {
                 // delete selected actions log
                 $deleteResult = false;
@@ -210,7 +212,9 @@ class ActionTrackerAdministrationController extends ApplicationAbstractAdministr
     {
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost() &&
+                $this->applicationCsrf()->isTokenValid($request->getPost('csrf'))) {
+
             if (null !== ($actionsIds = $request->getPost('actions', null))) {
                 // activate actions
                 $activateResult = false;
@@ -263,7 +267,9 @@ class ActionTrackerAdministrationController extends ApplicationAbstractAdministr
     {
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost() &&
+                $this->applicationCsrf()->isTokenValid($request->getPost('csrf'))) {
+
             if (null !== ($actionsIds = $request->getPost('actions', null))) {
                 // deactivate actions
                 $deactivateResult = false;
